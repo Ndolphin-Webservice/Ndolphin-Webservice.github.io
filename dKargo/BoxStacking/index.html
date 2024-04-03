@@ -107,6 +107,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
+          SendLoad();
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
@@ -118,7 +119,6 @@
       document.body.appendChild(script);
 
       function SendLoad() {
-        console.log('런처로 load 메시지 발송');
         if (window.parent) {
           const message = {
             "messageType": "load"
