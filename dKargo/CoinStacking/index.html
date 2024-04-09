@@ -107,6 +107,10 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
+          window.unityInstance.addEventListener('message', function (event){
+            var receivedData = JSON.parse(event.data);
+            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", receivedData.userKey, receivedData.promotionId, receivedData.language, receivedData.maxCount);
+          });
           SendLoad();
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
@@ -124,23 +128,6 @@
             "messageType": "load"
           };
           window.parent.postMessage(message, "*");
-        }
-      }
-
-      function CallInitGame(userKey, secretKey, language, maxCount, objectName, callback, fallback) {
-        var message = {
-          messageType: "init",
-          userKey: userKey,
-          secretKey: secretKey,
-          language: language,
-          maxCount: maxCount,
-          objectName: objectName,
-          callback: callback,
-          fallback: fallback
-        };
-        
-        if (window.unityInstance) {
-          window.unityInstance.SendMessage("FirebaseMgr", "InitGame", JSON.stringify(message));
         }
       }
     </script>
