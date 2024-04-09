@@ -126,6 +126,23 @@
           window.parent.postMessage(message, "*");
         }
       }
+
+      function CallInitGame(userKey, secretKey, language, maxCount, objectName, callback, fallback) {
+        var message = {
+          messageType: "init",
+          userKey: userKey,
+          secretKey: secretKey,
+          language: language,
+          maxCount: maxCount,
+          objectName: objectName,
+          callback: callback,
+          fallback: fallback
+        };
+        
+        if (window.unityInstance) {
+          window.unityInstance.SendMessage("FirebaseMgr", "InitGame", JSON.stringify(message));
+        }
+      }
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
