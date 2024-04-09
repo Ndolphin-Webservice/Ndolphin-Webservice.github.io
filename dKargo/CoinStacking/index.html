@@ -108,9 +108,8 @@
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
           window.addEventListener('message', function (event){
-            var receivedData = JSON.parse(event.data);
             alert("SendMsg: InitGame");
-            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", receivedData.userKey, receivedData.promotionId, receivedData.language, receivedData.maxCount);
+            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", event.data);
           });
           SendLoad();
           loadingBar.style.display = "none";
