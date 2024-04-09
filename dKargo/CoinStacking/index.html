@@ -107,9 +107,10 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
-          window.unityInstance.addEventListener('message', function (event){
+          var mainUnityInstance = unityInstance;
+          mainUnityInstance.addEventListener('message', function (event){
             var receivedData = JSON.parse(event.data);
-            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", receivedData.userKey, receivedData.promotionId, receivedData.language, receivedData.maxCount);
+            mainUnityInstance.SendMessage("FirebaseMgr", "InitGame", receivedData.userKey, receivedData.promotionId, receivedData.language, receivedData.maxCount);
           });
           SendLoad();
           loadingBar.style.display = "none";
