@@ -109,7 +109,7 @@
           window.unityInstance = unityInstance;
           SendLoad();
           loadingBar.style.display = "none";
-          window.unityInstance.addEventListener('message', function (event){
+          window.addEventListener('message', function (event){
             console.log(event.data);
             alert(event.data);
             console.log("TryInitGame");
