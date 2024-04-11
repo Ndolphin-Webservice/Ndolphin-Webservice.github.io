@@ -107,13 +107,18 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
-          SendLoad();
           loadingBar.style.display = "none";
           window.addEventListener('message', (event) => {
-            const { messageType } = event.data;
-            if (messageType === "init") {
-              console.log(messageType);
-              window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", JSON.stringify(event.data));
+            try {
+              var jsonData = JSON.stringify(event.data);
+              console.log("Valid JSON data:", jsonData);
+              const { messageType } = event.data;
+              if (messageType === "init") {
+                console.log(messageType);
+                window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", jsonData);
+              }
+            } catch (error) {
+              console.error("Invalid JSON data:", error);
             }
           });
           fullscreenButton.onclick = () => {
@@ -124,15 +129,6 @@
         });
       };
       document.body.appendChild(script);
-
-      function SendLoad() {
-        if (window.parent) {
-          const message = {
-            "messageType": "load"
-          };
-          window.parent.postMessage(message, "*");
-        }
-      }
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
