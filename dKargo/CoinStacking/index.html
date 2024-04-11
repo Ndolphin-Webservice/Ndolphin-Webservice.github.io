@@ -112,6 +112,8 @@
           window.addEventListener('message', function (event){
             console.log(event.data);
             alert(event.data);
+            console.log("TryInitGame");
+            window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", JSON.stringify(event.data));
             if(event.data.messageType === "init") {
               console.log("TryInitGame");
               window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", JSON.stringify(event.data));
