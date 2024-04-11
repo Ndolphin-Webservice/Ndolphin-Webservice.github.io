@@ -107,12 +107,14 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
-          window.unityInstance.addEventListener('message', function (event){
-            var receivedData = JSON.parse(event.data);
-            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", receivedData.userKey, receivedData.promotionId, receivedData.language, receivedData.maxCount);
-          });
           SendLoad();
           loadingBar.style.display = "none";
+          window.addEventListener('message', function (event){
+            if(event.data.messageType === "init") {
+              console.log("TryInitGame");
+              window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", JSON.stringify(event.data));
+            }
+          });
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
