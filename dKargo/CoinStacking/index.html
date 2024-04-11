@@ -110,10 +110,9 @@
           SendLoad();
           loadingBar.style.display = "none";
           window.addEventListener('message', function (event){
-            if(event.data.messageType === "init")
-            {
-              alert("SendMsg: InitGame");
-              window.unityInstance.SendMessage("FirebaseMgr", "InitGame", JSON.stringify(event.data));
+            if(event.data.messageType === "init") {
+              console.log("TryInitGame");
+              window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", JSON.stringify(event.data));
             }
           });
           fullscreenButton.onclick = () => {
