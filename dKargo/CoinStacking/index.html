@@ -107,7 +107,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
-          window.addEventListener('message', function (event){
+          window.addEventListener('init', function (event){
             alert("SendMsg: InitGame");
             window.unityInstance.SendMessage("FirebaseMgr", "InitGame", event.data);
           });
