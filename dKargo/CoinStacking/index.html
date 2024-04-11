@@ -109,9 +109,12 @@
           window.unityInstance = unityInstance;
           SendLoad();
           loadingBar.style.display = "none";
-          window.unityInstance.addEventListener('init', function (event){
-            alert("SendMsg: InitGame");
-            window.unityInstance.SendMessage("FirebaseMgr", "InitGame", event.data);
+          window.unityInstance.addEventListener('message', function (event){
+            if(event.data.messageType === "init")
+            {
+              alert("SendMsg: InitGame");
+              window.unityInstance.SendMessage("FirebaseMgr", "InitGame", JSON.stringify(event.data));
+            }
           });
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
