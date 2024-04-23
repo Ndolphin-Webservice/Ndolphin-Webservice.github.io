@@ -103,6 +103,7 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+        clearCache();
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
@@ -127,6 +128,16 @@
         });
       };
       document.body.appendChild(script);
+
+      function clearCache() {
+        localStorage.clear();
+
+        if (window.caches) {
+          caches.keys().then(function(names) {
+            for (let name of names) caches.delete(name);
+          });
+        }
+      }
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
