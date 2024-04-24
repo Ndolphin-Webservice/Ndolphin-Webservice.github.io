@@ -57,15 +57,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/bleepyCoinStacking.v0.0.24.loader.js";
+      var loaderUrl = buildUrl + "/bleepyCoinStacking.v0.0.25.loader.js";
       var config = {
-        dataUrl: buildUrl + "/bleepyCoinStacking.v0.0.24.data",
-        frameworkUrl: buildUrl + "/bleepyCoinStacking.v0.0.24.framework.js",
-        codeUrl: buildUrl + "/bleepyCoinStacking.v0.0.24.wasm",
+        dataUrl: buildUrl + "/bleepyCoinStacking.v0.0.25.data",
+        frameworkUrl: buildUrl + "/bleepyCoinStacking.v0.0.25.framework.js",
+        codeUrl: buildUrl + "/bleepyCoinStacking.v0.0.25.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "bleepy",
         productName: "CoinStacking",
-        productVersion: "0.0.24",
+        productVersion: "0.0.25",
         showBanner: unityShowBanner,
       };
 
@@ -108,17 +108,7 @@
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
           loadingBar.style.display = "none";
-          window.addEventListener('message', (event) => {
-            try {
-              var jsonData = JSON.stringify(event.data);
-              const { messageType } = event.data;
-              if (messageType === "init") {
-                window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", jsonData);
-              }
-            } catch (error) {
-              console.error("Invalid data:", error);
-            }
-          });
+          window.addEventListener('message', handleMessage);
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
@@ -127,6 +117,25 @@
         });
       };
       document.body.appendChild(script);
+
+      function handleMessage(event) {
+        try {
+          var jsonData = JSON.stringify(event.data);
+          const { messageType } = event.data;
+          switch (messageType) {
+            case "init":
+              window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", jsonData);
+              break;
+            case "reset":
+              window.unityInstance.SendMessage("FirebaseMgr", "TryResetGame", jsonData);
+              break;
+            default:
+              break;
+          }
+        } catch (error) {
+          console.error("Invalid data:", error);
+        }
+      }
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
