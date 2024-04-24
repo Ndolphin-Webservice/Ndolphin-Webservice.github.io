@@ -108,7 +108,20 @@
         }).then((unityInstance) => {
           window.unityInstance = unityInstance;
           loadingBar.style.display = "none";
-          window.addEventListener('message', handleMessage);
+          window.addEventListener('message', (event) => {
+            try {
+              var jsonData = JSON.stringify(event.data);
+              const { messageType } = event.data;
+              if (messageType === "init") {
+                window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", jsonData);
+              }
+              else if (messageType === "reset") {
+                window.unityInstance.SendMessage("FirebaseMgr", "TryResetGame", jsonData);
+              }
+            } catch (error) {
+              console.error("Invalid data:", error);
+            }
+          });
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
@@ -117,25 +130,6 @@
         });
       };
       document.body.appendChild(script);
-
-      function handleMessage(event) {
-        try {
-          var jsonData = JSON.stringify(event.data);
-          const { messageType } = event.data;
-          switch (messageType) {
-            case "init":
-              window.unityInstance.SendMessage("FirebaseMgr", "TryInitGame", jsonData);
-              break;
-            case "reset":
-              window.unityInstance.SendMessage("FirebaseMgr", "TryResetGame", jsonData);
-              break;
-            default:
-              break;
-          }
-        } catch (error) {
-          console.error("Invalid data:", error);
-        }
-      }
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
