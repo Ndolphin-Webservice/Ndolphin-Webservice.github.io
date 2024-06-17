@@ -120,7 +120,8 @@
 
       function handleMessage(event) {
         try {
-
+          console.log("Received message:", event.data);
+          
           let jsonData;
           if (typeof event.data === 'string') {
             jsonData = event.data;
