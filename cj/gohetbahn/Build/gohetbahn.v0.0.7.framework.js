@@ -1976,13 +1976,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4646828: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4646883: function($0) {performance.now = function() { return $0; };},  
- 4646931: function($0) {performance.now = function() { return $0; };},  
- 4646979: function() {performance.now = Module['emscripten_get_now_backup'];},  
- 4647034: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4647095: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4647159: function() {return Module.webglContextAttributes.powerPreference;}
+  4647036: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4647091: function($0) {performance.now = function() { return $0; };},  
+ 4647139: function($0) {performance.now = function() { return $0; };},  
+ 4647187: function() {performance.now = Module['emscripten_get_now_backup'];},  
+ 4647242: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4647303: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4647367: function() {return Module.webglContextAttributes.powerPreference;}
 };
 
 
@@ -2131,14 +2131,14 @@ var ASM_CONSTS = {
     }
 
   function _GenerateTokenJS(size) {
-              var array = new Uint8Array(size);
-              window.crypto.getRandomValues(array);
-              var base64String = btoa(String.fromCharCode.apply(null, array));
-              var length = lengthBytesUTF8(base64String) + 1;
-              var stringOnHeap = _malloc(length);
-              stringToUTF8(base64String, stringOnHeap, length);
-              return stringOnHeap;
-          }
+          var array = new Uint8Array(size);
+          window.crypto.getRandomValues(array);
+          var base64String = btoa(String.fromCharCode.apply(null, array));
+          var length = lengthBytesUTF8(base64String) + 1;
+          var stringOnHeap = _malloc(length);
+          stringToUTF8(base64String, stringOnHeap, length);
+          return stringOnHeap;
+      }
 
   function _GetJSMemoryInfo(totalJSptr, usedJSptr) {
       if (performance.memory) {
@@ -4713,6 +4713,29 @@ var ASM_CONSTS = {
   
           requestOptions.timeout = timeout;
   	}
+
+  function _NotifyJS(token, type, status) {
+          try {
+              var parsedToken = UTF8ToString(token);
+              var parsedType = UTF8ToString(type);
+              var parsedStatus = UTF8ToString(status);
+              
+              if (window.parent) {
+                  const message = {
+                      from : "UNITY",
+                      type : parsedType,
+                      token : parsedToken,
+                      status : parsedStatus
+                  };
+                  window.parent.postMessage(JSON.stringify(message), "*");
+              }
+                        
+              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Notify : " + parsedType);
+                            
+          } catch (error) {
+              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Notify : " + parsedType + " " + error.message);
+          }
+      }
 
   function _ShareJS(token) {
           try {
@@ -15994,6 +16017,7 @@ var asmLibraryArg = {
   "JS_WebRequest_SetRedirectLimit": _JS_WebRequest_SetRedirectLimit,
   "JS_WebRequest_SetRequestHeader": _JS_WebRequest_SetRequestHeader,
   "JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
+  "NotifyJS": _NotifyJS,
   "ShareJS": _ShareJS,
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
