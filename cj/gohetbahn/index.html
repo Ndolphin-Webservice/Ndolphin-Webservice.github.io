@@ -57,15 +57,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/gohetbahn.v0.0.6.loader.js";
+      var loaderUrl = buildUrl + "/gohetbahn.v0.0.7.loader.js";
       var config = {
-        dataUrl: buildUrl + "/gohetbahn.v0.0.6.data",
-        frameworkUrl: buildUrl + "/gohetbahn.v0.0.6.framework.js",
-        codeUrl: buildUrl + "/gohetbahn.v0.0.6.wasm",
+        dataUrl: buildUrl + "/gohetbahn.v0.0.7.data",
+        frameworkUrl: buildUrl + "/gohetbahn.v0.0.7.framework.js",
+        codeUrl: buildUrl + "/gohetbahn.v0.0.7.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "ndolphinconnect",
         productName: "gohetbahn",
-        productVersion: "0.0.6",
+        productVersion: "0.0.7",
         showBanner: unityShowBanner,
       };
 
@@ -120,14 +120,24 @@
 
       function handleMessage(event) {
         try {
-          var jsonData = JSON.stringify(event.data);
-          const { messageType } = event.data;
-          switch (messageType) {
-            case "init":
+
+          let jsonData;
+          if (typeof event.data === 'string') {
+            jsonData = event.data;
+          } else {
+            jsonData = JSON.stringify(event.data);
+          }
+
+          const { type } = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+          switch (type) {
+            case "INIT_USER":
               window.unityInstance.SendMessage("DataMgr", "InitUser", jsonData);
               break;
-            case "inviteChance":
-              window.unityInstance.SendMessage("DataMgr", "GetInviteChance", jsonData);
+            case "SHARE":
+              window.unityInstance.SendMessage("DataMgr", "HandleShare", jsonData);
+              break;
+            case "INVITE_FRIEND":
+              window.unityInstance.SendMessage("DataMgr", "HandleInvite", jsonData);
               break;
           }
         } catch (error) {
