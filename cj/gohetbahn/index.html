@@ -133,10 +133,10 @@
             case "INIT_USER":
               window.unityInstance.SendMessage("DataMgr", "InitUser", jsonData);
               break;
-            case "SHARE":
+            case "RES_SHARE":
               window.unityInstance.SendMessage("DataMgr", "HandleShare", jsonData);
               break;
-            case "INVITE_FRIEND":
+            case "RES_INVITE_FRIEND":
               window.unityInstance.SendMessage("DataMgr", "HandleInvite", jsonData);
               break;
           }
@@ -144,6 +144,7 @@
           console.error("Invalid data:", error);
         }
       }
+
     </script>
   </body>
 </html>
