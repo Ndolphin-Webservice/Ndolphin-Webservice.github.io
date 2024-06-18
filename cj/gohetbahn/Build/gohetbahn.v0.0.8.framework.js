@@ -2140,14 +2140,15 @@ var ASM_CONSTS = {
       }
     }
 
-  function _InviteFriendJS(token) {
+  function _InviteFriendJS(token, type) {
           try {
               var parsedToken = UTF8ToString(token);
+              var parsedType = UTF8ToString(type);
           
               if (window.parent) {
                   const message = {
                       from : "UNITY",
-                      type : "U2T_INVITE_FRIEND",
+                      type : parsedType,
                       token : parsedToken,
                   };
                   window.parent.postMessage(JSON.stringify(message), "*");
@@ -4748,14 +4749,15 @@ var ASM_CONSTS = {
           }
       }
 
-  function _ShareJS(token) {
+  function _ShareJS(token, type) {
           try {
               var parsedToken = UTF8ToString(token);
+              var parsedType = UTF8ToString(type);
                   
               if (window.parent) {
                   const message = {
                       from : "UNITY",
-                      type : "U2T_SHARE",
+                      type : parsedType,
                       token : parsedToken,
                   };
                   window.parent.postMessage(JSON.stringify(message), "*");
