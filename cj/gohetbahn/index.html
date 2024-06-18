@@ -134,6 +134,9 @@
               window.unityInstance.SendMessage("DataMgr", "InitUser", jsonData);
               break;
             case "T2U_SHARE":
+              window.unityInstance.SendMessage("DataMgr", "HandleShareButton", jsonData);
+              break;
+            case "T2U_SHARE_DOWN":
               window.unityInstance.SendMessage("DataMgr", "HandleShare", jsonData);
               break;
             case "T2U_INIT_INVITE_FRIEND":
