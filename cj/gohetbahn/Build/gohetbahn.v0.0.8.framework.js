@@ -1976,13 +1976,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4647868: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4647923: function($0) {performance.now = function() { return $0; };},  
- 4647971: function($0) {performance.now = function() { return $0; };},  
- 4648019: function() {performance.now = Module['emscripten_get_now_backup'];},  
- 4648074: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4648135: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4648199: function() {return Module.webglContextAttributes.powerPreference;}
+  4648252: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4648307: function($0) {performance.now = function() { return $0; };},  
+ 4648355: function($0) {performance.now = function() { return $0; };},  
+ 4648403: function() {performance.now = Module['emscripten_get_now_backup'];},  
+ 4648458: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4648519: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4648583: function() {return Module.webglContextAttributes.powerPreference;}
 };
 
 
@@ -16653,10 +16653,10 @@ var dynCall_iiifii = Module["dynCall_iiifii"] = createExportWrapper("dynCall_iii
 var dynCall_viiiifii = Module["dynCall_viiiifii"] = createExportWrapper("dynCall_viiiifii");
 
 /** @type {function(...*):?} */
-var dynCall_fiifi = Module["dynCall_fiifi"] = createExportWrapper("dynCall_fiifi");
+var dynCall_jiiji = Module["dynCall_jiiji"] = createExportWrapper("dynCall_jiiji");
 
 /** @type {function(...*):?} */
-var dynCall_jiiji = Module["dynCall_jiiji"] = createExportWrapper("dynCall_jiiji");
+var dynCall_fiifi = Module["dynCall_fiifi"] = createExportWrapper("dynCall_fiifi");
 
 /** @type {function(...*):?} */
 var dynCall_iiffi = Module["dynCall_iiffi"] = createExportWrapper("dynCall_iiffi");
