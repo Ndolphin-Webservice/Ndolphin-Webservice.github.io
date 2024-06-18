@@ -2154,10 +2154,10 @@ var ASM_CONSTS = {
                   window.parent.postMessage(JSON.stringify(message), "*");
               }
            
-              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Request : InviteFriend");
+              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Request : " + parsedType);
               
           } catch (error) {
-              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Request : InviteFriend " + error.message);
+              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Request : " + parsedType + error.message);
           }
       }
 
@@ -4742,10 +4742,10 @@ var ASM_CONSTS = {
                   window.parent.postMessage(JSON.stringify(message), "*");
               }
                         
-              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Notify : " + parsedType);
+              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Post : " + parsedType);
                             
           } catch (error) {
-              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Notify : " + parsedType + " " + error.message);
+              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Post : " + parsedType + " " + error.message);
           }
       }
 
@@ -4763,10 +4763,10 @@ var ASM_CONSTS = {
                   window.parent.postMessage(JSON.stringify(message), "*");
               }
           
-              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Request : Share");
+              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Request : " + parsedType);
               
           } catch (error) {
-              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Request : Share " + error.message);
+              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Request : " + parsedType + error.message);
           }
       }
 
