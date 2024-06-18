@@ -1976,13 +1976,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4647260: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4647315: function($0) {performance.now = function() { return $0; };},  
- 4647363: function($0) {performance.now = function() { return $0; };},  
- 4647411: function() {performance.now = Module['emscripten_get_now_backup'];},  
- 4647466: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4647527: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4647591: function() {return Module.webglContextAttributes.powerPreference;}
+  4647868: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4647923: function($0) {performance.now = function() { return $0; };},  
+ 4647971: function($0) {performance.now = function() { return $0; };},  
+ 4648019: function() {performance.now = Module['emscripten_get_now_backup'];},  
+ 4648074: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4648135: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4648199: function() {return Module.webglContextAttributes.powerPreference;}
 };
 
 
@@ -4716,6 +4716,27 @@ var ASM_CONSTS = {
                       type : parsedType,
                       token : parsedToken,
                       status : parsedStatus
+                  };
+                  window.parent.postMessage(JSON.stringify(message), "*");
+              }
+                        
+              window.unityInstance.SendMessage("DataMgr", "RequireInfo", "Success Notify : " + parsedType);
+                            
+          } catch (error) {
+              window.unityInstance.SendMessage("DataMgr", "RequireError", "Error Notify : " + parsedType + " " + error.message);
+          }
+      }
+
+  function _PostJS(token, type) {
+          try {
+              var parsedToken = UTF8ToString(token);
+              var parsedType = UTF8ToString(type);
+              
+              if (window.parent) {
+                  const message = {
+                      from : "UNITY",
+                      type : parsedType,
+                      token : parsedToken,
                   };
                   window.parent.postMessage(JSON.stringify(message), "*");
               }
@@ -16007,6 +16028,7 @@ var asmLibraryArg = {
   "JS_WebRequest_SetRequestHeader": _JS_WebRequest_SetRequestHeader,
   "JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
   "NotifyJS": _NotifyJS,
+  "PostJS": _PostJS,
   "ShareJS": _ShareJS,
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,

@@ -130,13 +130,16 @@
 
           const { type } = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
           switch (type) {
-            case "RES_INIT_USER":
+            case "T2U_INIT_USER":
               window.unityInstance.SendMessage("DataMgr", "InitUser", jsonData);
               break;
-            case "RES_SHARE":
+            case "T2U_SHARE":
               window.unityInstance.SendMessage("DataMgr", "HandleShare", jsonData);
               break;
-            case "RES_INVITE_FRIEND":
+            case "T2U_INIT_INVITE_FRIEND":
+              window.unityInstance.SendMessage("DataMgr", "HandleInvite", jsonData);
+              break;
+            case "T2U_INVITE_FRIEND":
               window.unityInstance.SendMessage("DataMgr", "HandleInvite", jsonData);
               break;
           }
