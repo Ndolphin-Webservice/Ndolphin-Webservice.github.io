@@ -16363,6 +16363,7 @@ var asmLibraryArg = {
   "invoke_j": invoke_j,
   "invoke_jdi": invoke_jdi,
   "invoke_ji": invoke_ji,
+  "invoke_jidi": invoke_jidi,
   "invoke_jii": invoke_jii,
   "invoke_jiii": invoke_jiii,
   "invoke_jiiii": invoke_jiiii,
@@ -16836,6 +16837,9 @@ var dynCall_jjii = Module["dynCall_jjii"] = createExportWrapper("dynCall_jjii");
 var dynCall_dji = Module["dynCall_dji"] = createExportWrapper("dynCall_dji");
 
 /** @type {function(...*):?} */
+var dynCall_jidi = Module["dynCall_jidi"] = createExportWrapper("dynCall_jidi");
+
+/** @type {function(...*):?} */
 var dynCall_vijiii = Module["dynCall_vijiii"] = createExportWrapper("dynCall_vijiii");
 
 /** @type {function(...*):?} */
@@ -17122,9 +17126,6 @@ var dynCall_iidii = Module["dynCall_iidii"] = createExportWrapper("dynCall_iidii
 
 /** @type {function(...*):?} */
 var dynCall_iidiii = Module["dynCall_iidiii"] = createExportWrapper("dynCall_iidiii");
-
-/** @type {function(...*):?} */
-var dynCall_jidi = Module["dynCall_jidi"] = createExportWrapper("dynCall_jidi");
 
 /** @type {function(...*):?} */
 var dynCall_diji = Module["dynCall_diji"] = createExportWrapper("dynCall_diji");
@@ -18875,6 +18876,17 @@ function invoke_dji(index,a1,a2,a3) {
   var sp = stackSave();
   try {
     return dynCall_dji(index,a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (e !== e+0) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_jidi(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return dynCall_jidi(index,a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (e !== e+0) throw e;
