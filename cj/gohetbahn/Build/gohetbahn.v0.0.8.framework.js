@@ -2147,7 +2147,7 @@ var ASM_CONSTS = {
               if (window.parent) {
                   const message = {
                       from : "UNITY",
-                      type : "REQ_INVITE_FRIEND",
+                      type : "U2T_INVITE_FRIEND",
                       token : parsedToken,
                   };
                   window.parent.postMessage(JSON.stringify(message), "*");
@@ -4755,7 +4755,7 @@ var ASM_CONSTS = {
               if (window.parent) {
                   const message = {
                       from : "UNITY",
-                      type : "REQ_SHARE",
+                      type : "U2T_SHARE",
                       token : parsedToken,
                   };
                   window.parent.postMessage(JSON.stringify(message), "*");
