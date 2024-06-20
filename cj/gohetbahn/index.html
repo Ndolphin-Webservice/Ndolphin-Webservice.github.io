@@ -60,12 +60,16 @@
     }
 
     var buildUrl = "Build";
-    var buildVersion = "DEV";
-    var loaderUrl = `${buildUrl}/${buildVersion}.loader.js`;
+    var buildVersion = "0.0.10";
+    var buildType = "DEV";
+    var loaderUrl = `${buildUrl}/${buildType}.loader.js`;
     var config = {
-        dataUrl: `${buildUrl}/${buildVersion}.data`,
-        frameworkUrl: `${buildUrl}/${buildVersion}.framework.js`,
-        codeUrl: `${buildUrl}/${buildVersion}.wasm`,
+        dataUrl: `${buildUrl}/${buildType}.data`,
+        frameworkUrl: `${buildUrl}/${buildType}.framework.js`,
+        codeUrl: `${buildUrl}/${buildType}.wasm`,
+        companyName: "ndolphinconnect",
+        productName: "gohetbahn",
+        productVersion: `${buildVersion}`,
         showBanner: unityShowBanner,
     };
 
