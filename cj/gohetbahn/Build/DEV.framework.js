@@ -4742,7 +4742,11 @@ var ASM_CONSTS = {
                   window.parent.postMessage(JSON.stringify(message), "*");
               }
                         
-              window.unityInstance.SendMessage("DataMgr", "RequestResultInfo", "Success Post : " + parsedType);
+              if (window.unityInstance) {
+                  window.unityInstance.SendMessage("DataMgr", "RequestResultInfo", "Success Post : " + parsedType);
+              } else {
+                  console.error("Unity instance is not initialized.");
+              }
                             
           } catch (error) {
               window.unityInstance.SendMessage("DataMgr", "RequestResultError", "Error Post : " + parsedType + " " + error.message);
