@@ -16745,10 +16745,10 @@ var dynCall_vijii = Module["dynCall_vijii"] = createExportWrapper("dynCall_vijii
 var dynCall_viiiifii = Module["dynCall_viiiifii"] = createExportWrapper("dynCall_viiiifii");
 
 /** @type {function(...*):?} */
-var dynCall_fi = Module["dynCall_fi"] = createExportWrapper("dynCall_fi");
+var dynCall_jidi = Module["dynCall_jidi"] = createExportWrapper("dynCall_jidi");
 
 /** @type {function(...*):?} */
-var dynCall_jidi = Module["dynCall_jidi"] = createExportWrapper("dynCall_jidi");
+var dynCall_fi = Module["dynCall_fi"] = createExportWrapper("dynCall_fi");
 
 /** @type {function(...*):?} */
 var dynCall_fffi = Module["dynCall_fffi"] = createExportWrapper("dynCall_fffi");
