@@ -91,7 +91,7 @@
                     loadingBar.style.display = "none";
                     window.addEventListener('message', HandleMessage);
                     fullscreenButton.onclick = () => {
-                        unityInstance.SetFullscreen(1);
+                        document.makeFullscreen('unity-container');
                     };
                 }).catch((message) => {
                     alert(message);
