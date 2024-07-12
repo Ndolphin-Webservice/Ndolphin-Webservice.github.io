@@ -1993,13 +1993,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  3567632: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 3567693: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 3567757: function() {return Module.webglContextAttributes.powerPreference;},  
- 3567815: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 3567870: function($0) {performance.now = function() { return $0; };},  
- 3567918: function($0) {performance.now = function() { return $0; };},  
- 3567966: function() {performance.now = Module['emscripten_get_now_backup'];}
+  3566624: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 3566685: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 3566749: function() {return Module.webglContextAttributes.powerPreference;},  
+ 3566807: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 3566862: function($0) {performance.now = function() { return $0; };},  
+ 3566910: function($0) {performance.now = function() { return $0; };},  
+ 3566958: function() {performance.now = Module['emscripten_get_now_backup'];}
 };
 
 
@@ -4798,7 +4798,7 @@ var ASM_CONSTS = {
                               promotionId: parsedPromotionId,
                               nickname: "",
                               level: 1,
-                              experience: 0.0,
+                              experience: 80.0,
                               maxExperience: 100.0,
                               waterCount: 500,
                               lastWaterSupplyTime: "",
