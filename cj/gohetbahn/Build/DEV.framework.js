@@ -1976,13 +1976,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  4367932: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 4367987: function($0) {performance.now = function() { return $0; };},  
- 4368035: function($0) {performance.now = function() { return $0; };},  
- 4368083: function() {performance.now = Module['emscripten_get_now_backup'];},  
- 4368138: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 4368199: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 4368263: function() {return Module.webglContextAttributes.powerPreference;}
+  4367948: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 4368003: function($0) {performance.now = function() { return $0; };},  
+ 4368051: function($0) {performance.now = function() { return $0; };},  
+ 4368099: function() {performance.now = Module['emscripten_get_now_backup'];},  
+ 4368154: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 4368215: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 4368279: function() {return Module.webglContextAttributes.powerPreference;}
 };
 
 
@@ -4750,6 +4750,29 @@ var ASM_CONSTS = {
                             
           } catch (error) {
               window.unityInstance.SendMessage("DataMgr", "RequestResultError", "Error Post : " + parsedType + " " + error.message);
+          }
+      }
+
+  function _PostScoreJS(token, type, score) {
+          try {
+              var parsedToken = UTF8ToString(token);
+              var parsedType = UTF8ToString(type);
+              var parsedScore = UTF8ToString(score);
+              
+              if (window.parent) {
+                  const message = {
+                      from : "UNITY",
+                      type : parsedType,
+                      token : parsedToken,
+                      score : parsedScore,
+                  };
+                  window.parent.postMessage(JSON.stringify(message), "*");
+              }
+                           
+              window.unityInstance.SendMessage("DataMgr", "RequestResultInfo", "Success Request : " + parsedType);
+                              
+          } catch (error) {
+              window.unityInstance.SendMessage("DataMgr", "RequestResultError", "Error Request : " + parsedType + " " + error.message);
           }
       }
 
@@ -16035,6 +16058,7 @@ var asmLibraryArg = {
   "JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
   "NotifyJS": _NotifyJS,
   "PostJS": _PostJS,
+  "PostScoreJS": _PostScoreJS,
   "ShareJS": _ShareJS,
   "__assert_fail": ___assert_fail,
   "__cxa_allocate_exception": ___cxa_allocate_exception,
