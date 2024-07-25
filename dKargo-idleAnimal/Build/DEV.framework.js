@@ -2184,9 +2184,10 @@ var ASM_CONSTS = {
           }
       }
 
-  function _GameDataSubmitJS(typePtr, submitTypePtr, submitValuePtr, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
+  function _GameDataSubmitIntJS(typePtr, submitTypePtr, submitValuePtr, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
           var type = UTF8ToString(typePtr);
           var submitType = UTF8ToString(submitTypePtr);
+          var submitValue = submitValuePtr;
           var status = UTF8ToString(statusPtr);
           var objectName = UTF8ToString(objectNamePtr);
           var callback = UTF8ToString(callbackPtr);
@@ -2197,13 +2198,39 @@ var ASM_CONSTS = {
                   const message = {
                       messageType: type,
                       gameDataSubmitType: submitType,
-                      gameDataSubmitValue: submitValuePtr,
+                      gameDataSubmitValue: submitValue,
                       status: status
                   };
               window.parent.postMessage(message, "*");
           }
-              window.unityInstance.SendMessage(objectName, callback, "Success " + type + ": " + submitType + ", " + status);
+              window.unityInstance.SendMessage(objectName, callback, "Success " + type + ": " + submitType + ", " + submitValue + ", " + status);
                                     
+          } catch (error) {
+              window.unityInstance.SendMessage(objectName, fallback, "Failed " + type + ": " + JSON.stringify(error, Object.getOwnPropertyNames(error)));
+          }
+      }
+
+  function _GameDataSubmitStrJS(typePtr, submitTypePtr, submitValuePtr, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
+          var type = UTF8ToString(typePtr);
+          var submitType = UTF8ToString(submitTypePtr);
+          var submitValue = UTF8ToString(submitValuePtr);
+          var status = UTF8ToString(statusPtr);
+          var objectName = UTF8ToString(objectNamePtr);
+          var callback = UTF8ToString(callbackPtr);
+          var fallback = UTF8ToString(fallbackPtr);
+          
+          try {
+              if (window.parent) {
+                  const message = {
+                      messageType: type,
+                      gameDataSubmitType: submitType,
+                      gameDataSubmitValue: submitValue,
+                      status: status
+                  };
+                  window.parent.postMessage(message, "*");
+              }
+              window.unityInstance.SendMessage(objectName, callback, "Success " + type + ": " + submitType + ", " + submitValue + ", " + status);
+                                
           } catch (error) {
               window.unityInstance.SendMessage(objectName, fallback, "Failed " + type + ": " + JSON.stringify(error, Object.getOwnPropertyNames(error)));
           }
@@ -16016,7 +16043,8 @@ function checkIncomingModuleAPI() {
 var asmLibraryArg = {
   "DeleteDataJS": _DeleteDataJS,
   "ExitFullscreen": _ExitFullscreen,
-  "GameDataSubmitJS": _GameDataSubmitJS,
+  "GameDataSubmitIntJS": _GameDataSubmitIntJS,
+  "GameDataSubmitStrJS": _GameDataSubmitStrJS,
   "GetJSMemoryInfo": _GetJSMemoryInfo,
   "InitAppJS": _InitAppJS,
   "IsFullscreen": _IsFullscreen,
