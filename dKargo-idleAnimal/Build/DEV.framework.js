@@ -1993,13 +1993,13 @@ var tempI64;
 // === Body ===
 
 var ASM_CONSTS = {
-  3699488: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
- 3699549: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
- 3699613: function() {return Module.webglContextAttributes.powerPreference;},  
- 3699671: function() {Module['emscripten_get_now_backup'] = performance.now;},  
- 3699726: function($0) {performance.now = function() { return $0; };},  
- 3699774: function($0) {performance.now = function() { return $0; };},  
- 3699822: function() {performance.now = Module['emscripten_get_now_backup'];}
+  3699616: function() {return Module.webglContextAttributes.premultipliedAlpha;},  
+ 3699677: function() {return Module.webglContextAttributes.preserveDrawingBuffer;},  
+ 3699741: function() {return Module.webglContextAttributes.powerPreference;},  
+ 3699799: function() {Module['emscripten_get_now_backup'] = performance.now;},  
+ 3699854: function($0) {performance.now = function() { return $0; };},  
+ 3699902: function($0) {performance.now = function() { return $0; };},  
+ 3699950: function() {performance.now = Module['emscripten_get_now_backup'];}
 };
 
 
@@ -5069,6 +5069,11 @@ var ASM_CONSTS = {
           try {
               const jsonObj = JSON.parse(jsonData);
               firebase.firestore().collection('Dkargo_User').doc(uid).set(jsonObj)
+              .then(() => {
+                  if (window.unityInstance) {
+                      window.unityInstance.SendMessage(objectName, callback);
+                  }
+              })
               .catch((error) => {
                   if (window.unityInstance) {
                       window.unityInstance.SendMessage(objectName, fallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
@@ -5111,6 +5116,28 @@ var ASM_CONSTS = {
           }
       }
 
+  function _SaveTempDataJS(uidPtr, jsonDataPtr, objectNamePtr, callbackPtr, fallbackPtr) {
+          var uid = UTF8ToString(uidPtr);
+          var jsonData = UTF8ToString(jsonDataPtr);
+          var objectName = UTF8ToString(objectNamePtr);
+          var callback = UTF8ToString(callbackPtr);
+          var fallback = UTF8ToString(fallbackPtr);
+      
+          try {
+              const jsonObj = JSON.parse(jsonData);
+              firebase.firestore().collection('Dkargo_User').doc(uid).set(jsonObj)
+              .catch((error) => {
+                  if (window.unityInstance) {
+                      window.unityInstance.SendMessage(objectName, fallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+                  }
+              });
+          } catch (error) {
+              if (window.unityInstance) {
+                  window.unityInstance.SendMessage(objectName, fallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+              }
+          }
+      }
+
   function _SendRewardResponseJS(typePtr, resultListPtr, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
           var type = UTF8ToString(typePtr);
           var resultListJson = UTF8ToString(resultListPtr);
@@ -5137,11 +5164,10 @@ var ASM_CONSTS = {
           }
       }
 
-  function _SubmitScoreJS(typePtr, userKeyPtr, promotionIdPtr, scorePtr, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
+  function _SubmitScoreJS(typePtr, userKeyPtr, promotionIdPtr, score, statusPtr, objectNamePtr, callbackPtr, fallbackPtr) {
           var type = UTF8ToString(typePtr);
           var userKey = UTF8ToString(userKeyPtr);
           var promotionId = UTF8ToString(promotionIdPtr);
-          var score = UTF8ToString(scorePtr);
           var status = UTF8ToString(statusPtr);
           var objectName = UTF8ToString(objectNamePtr);
           var callback = UTF8ToString(callbackPtr);
@@ -5158,7 +5184,7 @@ var ASM_CONSTS = {
                   };
                   window.parent.postMessage(message, "*");
               }
-              window.unityInstance.SendMessage(objectName, callback, "Success " + type + ": " + status);
+              window.unityInstance.SendMessage(objectName, callback, score);
   
           } catch (error) {
               window.unityInstance.SendMessage(objectName, fallback, "Failed " + type + ": " + JSON.stringify(error, Object.getOwnPropertyNames(error)));
@@ -16221,6 +16247,7 @@ var asmLibraryArg = {
   "NotifyUIDJS": _NotifyUIDJS,
   "SaveDataJS": _SaveDataJS,
   "SaveSoundDataJS": _SaveSoundDataJS,
+  "SaveTempDataJS": _SaveTempDataJS,
   "SendRewardResponseJS": _SendRewardResponseJS,
   "SubmitScoreJS": _SubmitScoreJS,
   "WebGLInputCreate": _WebGLInputCreate,
